@@ -1,0 +1,12 @@
+[2026-09-17 10:00:01] [INFO] [192.168.1.10] Server started successfully
+[2026-09-17 10:05:22] [WARNING] [192.168.1.25] High memory usage detected
+[2026-09-17 10:10:00] [ERROR] [192.168.1.50] Database connection timeout
+[2026-09-17 10:11:15] [INFO] [192.168.1.10] User logged in
+[2026-09-17 10:15:30] [ERROR] [192.168.1.50] Database connection timeout
+
+[2026-09-17 10:20:05] [ERROR] [10.0.0.5] NullPointerException in UserAuthModule
+[2026-09-17 10:22:10] [ERROR] [192.168.1.50] Database connection timeout
+this is a malformed line that should be skipped
+[2026-09-17 10:25:00] [INFO] [192.168.1.15] Scheduled task completed
+[2026-09-17 10:30:00] [ERROR] [10.0.0.5] NullPointerException in UserAuthModule
+[2026-09-17 10:35:10] [WARNING] [192.168.1.10] Failed login attempt
