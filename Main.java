@@ -18,7 +18,6 @@ public class Main {
         String filterIp = null;
         boolean showSummary = false;
 
-        // parse command line arguments
         for (int i = 1; i < args.length; i++) {
             if (args[i].equals("--severity") && i + 1 < args.length) {
                 filterSeverity = args[i+1];
@@ -36,13 +35,11 @@ public class Main {
 
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
-            // read log file line by line
+            
+    // read file and parse lines
             while ((line = br.readLine()) != null) {
-                // skip blank lines to prevent crashes on messy files
                 if (line.trim().isEmpty()) continue; 
                 
-                // basic string parsing to avoid complex regex
-                // assuming format: [Date] [Severity] [IP] Message
                 int dateEnd = line.indexOf("] [");
                 int severityEnd = line.indexOf("] [", dateEnd + 1);
                 int ipEnd = line.indexOf("] ", severityEnd + 1);
@@ -55,9 +52,9 @@ public class Main {
                     
                     boolean match = true;
                     
-                    if (filterSeverity != null && !severity.equals(filterSeverity)) {
-                        match = false;
-                    }
+                        if (filterSeverity != null && !severity.equals(filterSeverity)) {
+                            match = false;
+                        }
                     if (filterIp != null && !ip.equals(filterIp)) {
                         match = false;
                     }
@@ -67,16 +64,12 @@ public class Main {
                     }
 
                     if (showSummary) {
-                        // count ips
                         ipCounts.put(ip, ipCounts.getOrDefault(ip, 0) + 1);
-                        
-                        // count errors if severity is ERROR
                         if (severity.equals("ERROR")) {
                             errorCounts.put(message, errorCounts.getOrDefault(message, 0) + 1);
                         }
                     }
                 } else {
-                    // couldn't parse line properly
                     if (filterSeverity == null && filterIp == null && !showSummary) {
                         System.out.println("Malformed line skipped: " + line);
                     }
@@ -100,7 +93,8 @@ public class Main {
         }
     }
 
-    // sort the map by values and print top 5 as a simple list
+
+// print top 5 counts
     private static void printTop5(Map<String, Integer> counts) {
         if (counts.isEmpty()) {
             System.out.println("  None found.");
@@ -109,7 +103,6 @@ public class Main {
 
         List<Map.Entry<String, Integer>> list = new ArrayList<>(counts.entrySet());
         
-        // sort descending
         list.sort((a, b) -> b.getValue().compareTo(a.getValue())); 
 
         int limit = Math.min(5, list.size());
